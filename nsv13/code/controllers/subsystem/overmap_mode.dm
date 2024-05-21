@@ -420,7 +420,7 @@ SUBSYSTEM_DEF(overmap_mode)
 	else
 		target = SSstar_system.ships[OM]["target_system"]
 	priority_announce("Attention all ships throughout the fleet, assume DEFCON 1. A Syndicate invasion force has been spotted in [target]. All fleets must return to allied space and assist in the defense.") //need a faction message
-	var/datum/fleet/F = new /datum/fleet/interdiction() //need a fleet
+	var/datum/fleet/F = new /datum/fleet/earthbuster() //need a fleet
 	target.fleets += F
 	F.current_system = target
 	F.assemble(target)
