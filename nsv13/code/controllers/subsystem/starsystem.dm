@@ -1056,6 +1056,7 @@ Welcome to the neutral zone! Non corporate sanctioned traders with better gear a
 	fleet_type = /datum/fleet/nanotrasen/border/defense //The foothold in the darkness
 	adjacency_list = list("Ariel", "Argo", "The Badlands", "Ida", "Sion")
 	preset_trader = /datum/trader/armsdealer
+	audio_cues = list("https://www.youtube.com/watch?v=1pHbQ87NcCY", "https://www.youtube.com/watch?v=PSmUokZSbBs", "https://www.youtube.com/watch?v=bCxHzIQ9-Fs")
 	desc = "The last bastion of civilisation before the endless uncharted wastes beyond."
 
 /datum/star_system/sector2/sion
@@ -1140,6 +1141,7 @@ Random starsystem. Excluded from starmap saving, as they're generated at init.
 	y = 30
 	sector = 2
 	adjacency_list = list("Foothold")
+	audio_cues = list("https://www.youtube.com/watch?v=HIdNZlBKrTA")
 	desc = "The beginning of a sector of uncharted space known as the Delphic expanse. Ships from many opposing factions all vye for control over this new territory."
 	startup_proc = "STARTUP_PROC_TYPE_BRASIL"
 
@@ -1604,6 +1606,7 @@ Welcome to the endgame. This sector is the hardest you'll encounter in game and 
 	adjacency_list = list("Oasis Fidei", "Deimos", "Phobos") //No going back from here...
 	threat_level = THREAT_LEVEL_DANGEROUS
 	hidden = FALSE
+	audio_cues = list("https://www.youtube.com/watch?v=n_aONGBjuLA")
 	desc = "A place where giants fell. You feel nothing save for an odd sense of unease and an eerie silence."
 	system_traits = STARSYSTEM_NO_ANOMALIES | STARSYSTEM_NO_WORMHOLE
 

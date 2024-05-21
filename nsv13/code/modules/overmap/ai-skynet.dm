@@ -50,7 +50,8 @@ Adding tasks is easy! Just define a datum for it.
 	var/hide_movements = FALSE
 	var/alignment = "syndicate"
 	var/list/taunts = list("Unidentified vessel, you have entered our airspace. Leave immediately or be destroyed", "Identify yourselves immediately or be destroyed", "Unidentified vessel, leave immediately. You are entering Syndicate territory.", "Hold it right there. Prepare to be boarded, Captain.", "Nanotrasen vessel, surrender immediately or face unnecessary casualties.", "All Nanotrasen crewmen, please prepare for immediate evisceration.", "Unidentified vessel, transmit your credentials now or- Wait a second, that’s the ship we’re looking for! Deploy fighters!", "Nanotrasen? You’ve just made my day, all crafts prepare to engage.", "Unknown vessel, failure to contact Syndicate control on frequency 0.4 is a suspected act of aggression. Prepare for engagement.")
-	var/list/greetings = list("IFF confirmed, good to see you", "Allied vessel, IFF confirmed.")
+	var/list/greetings = list("IFF confirmed, good to see you", "Allied vessel, IFF confirmed.", "Friendly confirmed, greetings.", "Friendly vessel, your IFF has been confirmed, hello.", "Same IFF confirmed, you may pass.")
+	var/list/greetings_rare = list("Hello Friendly vessel. You wouldn't happen to know who took the donuts, would you?", "Hey friendly captain, The price of [pick(list("iron","silver","plasma","gold","copper","uranium","bluespace crystals"))] went up again! This ship will cost a fortune to fix now!", "IFF Confirmed, it's good to see you, unlike these IDIOTS here in the bridge!", "Hello friendly captain, would you have some spare fuel? No? Well alright...", "Hello friendly vessel. I hate fighting, I worry my precious glass vase might get damaged.",)
 	var/list/recently_visited = list()
 	var/fleet_trait = FLEET_TRAIT_INVASION
 	var/last_encounter_time = 0
@@ -763,7 +764,7 @@ Adding tasks is easy! Just define a datum for it.
 	name = "\improper unidentified Syndicate fleet"
 	destroyer_types = list(/obj/structure/overmap/syndicate/ai/submarine)
 	battleship_types = list(/obj/structure/overmap/syndicate/ai/cruiser, /obj/structure/overmap/syndicate/ai/cruiser/elite, /obj/structure/overmap/syndicate/ai/mako_flak, /obj/structure/overmap/syndicate/ai/destroyer)
-	audio_cues = list()
+	audio_cues = list("https://www.youtube.com/watch?v=sMejhjMfKj4", "https://www.youtube.com/watch?v=bfskFravnWM", "https://www.youtube.com/watch?v=C3WcBLLMnQ4")
 	hide_movements = TRUE
 	taunts = list("....", "*static*")
 	fleet_trait = FLEET_TRAIT_NEUTRAL_ZONE
@@ -771,7 +772,7 @@ Adding tasks is easy! Just define a datum for it.
 /datum/fleet/conflagration
 	name = "\improper Syndicate conflagration deterrent"
 	taunts = list("Enemy ship, surrender now. This vessel is armed with hellfire weapons and eager to test them.")
-	audio_cues = list()
+	audio_cues = list("https://www.youtube.com/watch?v=0iXfWWrwrlQ", "https://www.youtube.com/watch?v=YW2bPkw0VyU")
 	destroyer_types = list(/obj/structure/overmap/syndicate/ai/conflagration, /obj/structure/overmap/syndicate/ai/conflagration/elite)
 	size = 2
 	fleet_trait = FLEET_TRAIT_NEUTRAL_ZONE
@@ -797,7 +798,7 @@ Adding tasks is easy! Just define a datum for it.
 
 /datum/fleet/pirate/scout
 	name = "\improper Tortuga Raiders scout fleet"
-	audio_cues = list()
+	audio_cues = list("https://www.youtube.com/watch?v=LjhF3yIeDSc", "https://www.youtube.com/watch?v=dsLHf9X8P8w")
 	taunts = list("Yar har! Fresh meat", "Unfurl the mainsails! We've got company", "Die landlubbers!")
 	size = FLEET_DIFFICULTY_MEDIUM
 	fleet_trait = FLEET_TRAIT_DEFENSE
@@ -805,14 +806,14 @@ Adding tasks is easy! Just define a datum for it.
 /datum/fleet/pirate/raiding
 	name = "\improper Tortuga Raiders raiding fleet"
 	destroyer_types = list(/obj/structure/overmap/spacepirate/ai, /obj/structure/overmap/spacepirate/ai/boarding)
-	audio_cues = list()
+	audio_cues = list("https://www.youtube.com/watch?v=LjhF3yIeDSc", "https://www.youtube.com/watch?v=dsLHf9X8P8w")
 	taunts = list("Avast! A fine hold of loot sails our way", "Prepare the boarding crews, they've got enough loot for us all!")
 	size = FLEET_DIFFICULTY_MEDIUM
 
 /datum/fleet/pirate/tortuga
 	name = "\improper Tortuga Raiders holding fleet"
 	supply_types = list(/obj/structure/overmap/spacepirate/ai/dreadnought)
-	audio_cues = list()
+	audio_cues = list("https://www.youtube.com/watch?v=48b_TY8Jl2w", "https://www.youtube.com/watch?v=ntDt-502ftw")
 	taunts = list("These are our waters you are sailing, prepare to surrender!", "Bold of you to fly Nanotrasen colours in this system, your last mistake.")
 	size = FLEET_DIFFICULTY_VERY_HARD
 	fleet_trait = FLEET_TRAIT_DEFENSE
@@ -825,7 +826,7 @@ Adding tasks is easy! Just define a datum for it.
 	size = FLEET_DIFFICULTY_VERY_HARD
 	allow_difficulty_scaling = FALSE
 	battleship_types = list(/obj/structure/overmap/syndicate/ai/kadesh)	//:)
-	audio_cues = list()
+	audio_cues = list("https://www.youtube.com/watch?v=mhXuYp0n88g", "https://www.youtube.com/watch?v=l1J-2nIovYw", "https://www.youtube.com/watch?v=M_MdmLWmDHs")
 	taunts = list("Better crews have tried to cross the Rubicon, you will die like they did.", "Defense force, stand ready!", "Nanotrasen filth. Munitions, ready the guns. We’ll scrub the galaxy clean of you vermin.", "This shift just gets better and better. I’ll have your Captain’s head on my wall.")
 	fleet_trait = FLEET_TRAIT_DEFENSE
 
@@ -835,7 +836,7 @@ Adding tasks is easy! Just define a datum for it.
 	size = FLEET_DIFFICULTY_VERY_HARD
 	allow_difficulty_scaling = FALSE
 	taunts = list("We're coming for Sol, and you can't stop us. All batteries fire at will.", "Lay down your arms now, you're outnumbered.", "All hands, assume assault formation. Begin bombardment.")
-	audio_cues = list()
+	audio_cues = list("https://www.youtube.com/watch?v=k8-HHivlj8k")
 
 /datum/fleet/interdiction	//Pretty strong fleet with unerring hunting senses, Adminspawn for now.
 	name = "\improper Syndicate interdiction fleet"	//These fun guys can and will hunt the player ship down, no matter how far away they are.
@@ -843,7 +844,7 @@ Adding tasks is easy! Just define a datum for it.
 	battleship_types = list(/obj/structure/overmap/syndicate/ai/kadesh)
 	size = FLEET_DIFFICULTY_HARD
 	taunts = list("We have come to end your meagre existance. Prepare to die.", "Hostile entering weapons range. Fire at will.", "You have been a thorn in our side for quite a while. Time to end this.", "That is a nice ship you have there. Nothing a few hellfire missiles cannot fix.")
-	audio_cues = list()
+	audio_cues = list("https://www.youtube.com/watch?v=dTKakINXjl8")
 	var/obj/structure/overmap/hunted_ship
 	initial_move_delay = 5 MINUTES
 	minimum_random_move_delay = 2 MINUTES	//These are quite a bunch faster than your usual fleets. Good luck running. It won't save you.
@@ -865,7 +866,7 @@ Adding tasks is easy! Just define a datum for it.
 	name = "\proper Dolos Welcoming Party" //Don't do it czanek, don't fucking do it!
 	size = FLEET_DIFFICULTY_WHAT_ARE_YOU_DOING
 	allow_difficulty_scaling = FALSE
-	audio_cues = list()
+	audio_cues = list("https://www.youtube.com/watch?v=UPHmazxB38g") //FTL13 ;(
 	taunts = list("Don't think we didn't learn from your last attempt.", "We shall not fail again", "Your outdated MAC weapons are no match for us. Prepare to be destroyed.")
 	fleet_trait = FLEET_TRAIT_DEFENSE
 	destroyer_types = list(/obj/structure/overmap/syndicate/ai, /obj/structure/overmap/syndicate/ai/destroyer/elite, /obj/structure/overmap/syndicate/ai/destroyer/flak, /obj/structure/overmap/syndicate/ai/cruiser/elite, /obj/structure/overmap/syndicate/ai/mako_flak, /obj/structure/overmap/syndicate/ai/mako_carrier)
@@ -876,7 +877,7 @@ Adding tasks is easy! Just define a datum for it.
 	name = "\proper The Remnant"
 	size = FLEET_DIFFICULTY_WHAT_ARE_YOU_DOING
 	allow_difficulty_scaling = FALSE
-	audio_cues = list()
+	audio_cues = list("https://www.youtube.com/watch?v=ALn-7v9BxNg")
 	taunts = list("<pre>\[DECRYPTION FAILURE]</pre>")
 	fleet_trait = FLEET_TRAIT_DEFENSE
 	destroyer_types = list(/obj/structure/overmap/syndicate/ai, /obj/structure/overmap/syndicate/ai/destroyer/elite, /obj/structure/overmap/syndicate/ai/destroyer/flak, /obj/structure/overmap/syndicate/ai/cruiser/elite, /obj/structure/overmap/syndicate/ai/mako_flak, /obj/structure/overmap/syndicate/ai/mako_carrier)
@@ -888,7 +889,7 @@ Adding tasks is easy! Just define a datum for it.
 	size = 1
 	allow_difficulty_scaling = FALSE
 	battleship_types = list(/obj/structure/overmap/syndicate/ai/battleship)
-	audio_cues = list()
+	audio_cues = list("https://www.youtube.com/watch?v=zyPSAkz84vM")
 	taunts = list("Your assault on Rubicon only served to distract you from the real threat. It's time to end this war in one swift blow.")
 	fleet_trait = FLEET_TRAIT_DEFENSE
 
@@ -967,7 +968,7 @@ Adding tasks is easy! Just define a datum for it.
 	taunts = list("You're foolish to venture this deep into Solgov space! Main batteries stand ready.", "All hands, set condition 1 throughout the fleet, enemy vessel approaching.", "Defense force, stand ready!", "We shall protect our homeland!")
 	size = FLEET_DIFFICULTY_HARD
 	allow_difficulty_scaling = FALSE
-	audio_cues = list()
+	audio_cues = list("https://www.youtube.com/watch?v=k8-HHivlj8k")
 	fleet_trait = FLEET_TRAIT_DEFENSE
 
 /datum/fleet/solgov/assemble(datum/star_system/SS, difficulty)
