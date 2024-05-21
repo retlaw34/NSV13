@@ -50,8 +50,9 @@ Adding tasks is easy! Just define a datum for it.
 	var/hide_movements = FALSE
 	var/alignment = "syndicate"
 	var/list/taunts = list("Unidentified vessel, you have entered our airspace. Leave immediately or be destroyed", "Identify yourselves immediately or be destroyed", "Unidentified vessel, leave immediately. You are entering Syndicate territory.", "Hold it right there. Prepare to be boarded, Captain.", "Nanotrasen vessel, surrender immediately or face unnecessary casualties.", "All Nanotrasen crewmen, please prepare for immediate evisceration.", "Unidentified vessel, transmit your credentials now or- Wait a second, that’s the ship we’re looking for! Deploy fighters!", "Nanotrasen? You’ve just made my day, all crafts prepare to engage.", "Unknown vessel, failure to contact Syndicate control on frequency 0.4 is a suspected act of aggression. Prepare for engagement.")
-	var/list/greetings = list("IFF confirmed, good to see you", "Allied vessel, IFF confirmed.", "Friendly confirmed, greetings.", "Friendly vessel, your IFF has been confirmed, hello.", "Same IFF confirmed, you may pass.")
-	var/list/greetings_rare = list("Hello Friendly vessel. You wouldn't happen to know who took the donuts, would you?", "Hey friendly captain, The price of [pick(list("iron","silver","plasma","gold","copper","uranium","bluespace crystals"))] went up again! This ship will cost a fortune to fix now!", "IFF Confirmed, it's good to see you, unlike these IDIOTS here in the bridge!", "Hello friendly captain, would you have some spare fuel? No? Well alright...", "Hello friendly vessel. I hate fighting, I worry my precious glass vase might get damaged.",)
+	var/list/greetings = list("IFF confirmed, good to see you", "Allied vessel, IFF confirmed.", "Friendly confirmed, greetings.", "Friendly vessel, your IFF has been confirmed, welcome.", "Same IFF confirmed, you are clear to approach.")
+	var/list/greetings_rare = list("Hello Friendly vessel. You wouldn't happen to know who took the donuts, would you?", "Hey friendly captain, The price of repairs went up again! This ship will cost a fortune to fix now!", "IFF Confirmed, it's good to see you, unlike these IDIOTS here in the bridge!", "Hello friendly captain, would you have some spare fuel? No? Well alright...", "Hello friendly vessel: I hate fighting, I worry my precious glass vase might get damaged.", "Hey friendly capt, some advice, the fuel economy out here is real bad. You're better off refueling at the dock. Trust me.", "Friendly IFF... I had a hell of a day, I'll buy you a drink later back at the dock, on me.", "Heya allied vessel. You ever think some of these bounties are bogus. Like, WHO even has a clothperson husband to get a diamond for?", "Friendly IFF confirmed. I heard those syndies have a Sol invasion fleet setup, but are waiting for when most of the fleet are in maintence to launch it... best to stay on the move, eh?", "Friendly vessel confirmed. Our radar got destroyed earlier, so i'm assuming you're friendly by the fact you haven't shot at us yet.", "Hello friendly vessel, we're low on ammunition, if you have some to spare... I take that as a no.", "Heya friendly capt. After this mission, I'm definitely going get a raise now!", "Friendly IFF, bridge officer here, my captain told me not to chit-chat, but I'm doing it anyways to spite them.", "...hi... Speak up? Captain, that's all they needed to hear, right? Ugh, Hello friendly vessel, IFF confirmed.", "IFF confirmed captain. Have you seen some fighters we might have left behind?", "Welcome allied vessel. I heard that a whole fleet couldn't get past the defenses at Rubicon, but maybe a small ship can? But then there's no way you'd be able to against Dolos...", "Hello captain, those pirates at Tortuga are REALLY pissing me off now...")
+	var/list/deathgasps = list("S.O.S: We've taken too much dama--!!", "Mayday Mayday, We're going d-!!", "All hands, abandon ship!!", "Get to the evacuation shuttle!! We're supercritic--!!", "Reactor took a direct hit!! It's gonna blo--!!", "Automated distress signal due to destruction of the bridg-", "AI Core speaking. Organic total crew death detected. Scuttling vessel.", "Hulls too damged, we can't tak- *static*", "Allied ship, we're launching escape pods! Pick them u--!!", "GAAAAHAAHHHHH--!!", "I-It can't end like this...", "Connection lost to vessel.", "AAAAAAAAAAAAAAHHHHHH--!!","Call for backup! We can't take any--", "Glory to--!!", "...At least my crew is safe... *static*", "FRIENDLY VESSEL!! SAVE US BEFORE IT'S TOO LAT--!!", "IFF... confirmed... hmph.... it's t-too late now... *static*", "We're gonna blow!", "Damnit... Captain speaking... I'm not going to see that cutie now... *static*", "Damnit... Captain speaking... I'm not going to see my kids now... *static*", "Damnit... Captain speaking... I'm not going to see my parents now... *static*", "Just my luck... *static*", "... W-who knew captaining was so haAAAAAH--!!", "Captain speaking, we're evacuating and scuttling, good luck friendly vessel!", "Retreat! Retrea--!", "Friendly vessel! Hull is supercritical! We're outta here!", "Ship's in half, we don't got a choice now!", "If only the repair prices weren't so hig--!", "Pilot speaking... fighter has critical damage, and theres only seconds of oxygen left... I'm scared...", "Hulls supercritical! We gotta g--!!", "NOOOOO!! NOT LIKE THIS!! *static*", "MY CAPTAIN... I FAILED YOU--!!", "...In flanders field... *static*", "S.O.S: We've taken too much dama--!!", "Mayday Mayday, We're going d-!!", "All hands, abandon ship!!", "Get to the evacuation shuttle!! We're supercritic--!!", "Reactor took a direct hit!! It's gonna blo--!!", "Automated distress signal due to destruction of the bridg-")
 	var/list/recently_visited = list()
 	var/fleet_trait = FLEET_TRAIT_INVASION
 	var/last_encounter_time = 0
@@ -308,6 +309,12 @@ Adding tasks is easy! Just define a datum for it.
 	var/message = "\A [name] has been defeated [(current_system && !current_system.hidden) ? "during combat in the [current_system.name] system" : "in battle"]."
 	if(alignment == "nanotrasen" || current_system == player_system || current_system == mining_system)
 		minor_announce(message, "White Rapids Fleet Command")
+		for(var/obj/structure/overmap/OM in current_system.system_contents)
+			if(!(OM.faction == alignment || federation_check(OM)))
+				continue
+			if(prob(40))
+				OM.hail(pick(deathgasps), name)
+
 	else
 		mini_announce(message, "White Rapids Fleet Command")
 	current_system.fleets -= src
@@ -678,7 +685,10 @@ Adding tasks is easy! Just define a datum for it.
 	set waitfor = FALSE
 
 	if(OM.faction == alignment || federation_check(OM))
-		OM.hail(pick(greetings), name)
+		if(prob(4))
+			OM.hail(pick(greetings_rare), name)
+		else
+			OM.hail(pick(greetings), name)
 	assemble(current_system)
 	if(OM.faction != alignment && !federation_check(OM))
 		if(OM.alpha >= 150) //Sensor cloaks my boy, sensor cloaks
@@ -739,6 +749,8 @@ Adding tasks is easy! Just define a datum for it.
 		for(var/mob/M in mobs_in_ship)
 			if(M.client)
 				var/client/C = M.client
+				if(C.playing_music && !current_system.override_music)
+					return
 				C.tgui_panel?.stop_music()
 				C.tgui_panel?.play_music(web_sound_url, music_extra_data)
 
@@ -783,6 +795,7 @@ Adding tasks is easy! Just define a datum for it.
 	supply_types = list(/obj/structure/overmap/syndicate/ai/carrier/elite)
 	destroyer_types = list(/obj/structure/overmap/syndicate/ai/destroyer/elite)
 	battleship_types = list(/obj/structure/overmap/syndicate/ai/cruiser/elite)
+	audio_cues = list("https://www.youtube.com/watch?v=fdPxS2rrW9Q", "https://www.youtube.com/watch?v=l1J-2nIovYw", "https://www.youtube.com/watch?v=mG6Ys2opFD0", "https://www.youtube.com/watch?v=cb0yQ1buLbU", "https://www.youtube.com/watch?v=bb0NESRNY", "https://www.youtube.com/watch?v=uqCPVySmYxk", "https://www.youtube.com/watch?v=M79CYCn", "https://www.youtube.com/watch?v=k8mQneexeyM", "https://www.youtube.com/watch?v=OF_sdrWZlFk", "https://www.youtube.com/watch?v=-viQftNNgjw", "https://www.youtube.com/watch?v=c3F_53cwuYY", "https://www.youtube.com/watch?v=b4Vv4zdcIyE", "https://www.youtube.com/watch?v=xuIFa-5QYF0", "https://www.youtube.com/watch?v=Ver6Bk-N-0U", "https://www.youtube.com/watch?v=oPFlzotavVg", "https://www.youtube.com/watch?v=rWcB1kN933g", "https://www.youtube.com/watch?v=AgL6jbqDbx8", "https://www.youtube.com/watch?v=Y5RD4mneFew")
 
 //Space Pirate Fleets
 /datum/fleet/pirate
@@ -861,6 +874,7 @@ Adding tasks is easy! Just define a datum for it.
 	battleship_types = list(/obj/structure/overmap/syndicate/ai/cruiser)
 	size = FLEET_DIFFICULTY_MEDIUM	//Don't let this fool you though, they are still somewhat dangerous and will hunt you down.
 	initial_move_delay = 12 MINUTES
+	audio_cues = list("https://www.youtube.com/watch?v=fdPxS2rrW9Q", "https://www.youtube.com/watch?v=l1J-2nIovYw", "https://www.youtube.com/watch?v=mG6Ys2opFD0", "https://www.youtube.com/watch?v=cb0yQ1buLbU", "https://www.youtube.com/watch?v=bb0NESRNY", "https://www.youtube.com/watch?v=uqCPVySmYxk", "https://www.youtube.com/watch?v=M79CYCn", "https://www.youtube.com/watch?v=k8mQneexeyM", "https://www.youtube.com/watch?v=OF_sdrWZlFk", "https://www.youtube.com/watch?v=-viQftNNgjw", "https://www.youtube.com/watch?v=c3F_53cwuYY", "https://www.youtube.com/watch?v=b4Vv4zdcIyE", "https://www.youtube.com/watch?v=xuIFa-5QYF0", "https://www.youtube.com/watch?v=Ver6Bk-N-0U", "https://www.youtube.com/watch?v=oPFlzotavVg", "https://www.youtube.com/watch?v=rWcB1kN933g", "https://www.youtube.com/watch?v=AgL6jbqDbx8", "https://www.youtube.com/watch?v=Y5RD4mneFew")
 
 /datum/fleet/dolos
 	name = "\proper Dolos Welcoming Party" //Don't do it czanek, don't fucking do it!
@@ -902,6 +916,7 @@ Adding tasks is easy! Just define a datum for it.
 	supply_types = list(/obj/structure/overmap/syndicate/ai/carrier/elite)
 	taunts = list("What a pleasure that we should meet again. I hope you won't disappoint!")
 	fleet_trait = FLEET_TRAIT_DEFENSE
+	audio_cues = list("https://youtu.be/EKRkAEjjhpE")
 
 /datum/fleet/hostile/alicorn_boss
 	name = "\proper SGV Alicorn"
@@ -912,6 +927,7 @@ Adding tasks is easy! Just define a datum for it.
 	supply_types = list(/obj/structure/overmap/hostile/ai/alicorn)
 	taunts = list("A powerful ship, a powerful gun, powerful ammunition. The graceful slaughter of a billion lives to save billions more, you'll be the first of many.")
 	fleet_trait = FLEET_TRAIT_DEFENSE
+	audio_cues = list("https://youtu.be/EKRkAEjjhpE")
 
 
 //Nanotrasen fleets

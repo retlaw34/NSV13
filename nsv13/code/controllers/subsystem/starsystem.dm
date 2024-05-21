@@ -426,6 +426,7 @@ Returns a faction datum by its name (case insensitive!)
 	var/preset_trader = null
 	var/datum/trader/trader = null
 	var/list/audio_cues = null //if you want music to queue on system entry. Format: list of youtube or media URLS.
+	var/override_music = TRUE
 	var/already_announced_combat = FALSE
 	var/startup_proc = null
 
@@ -927,6 +928,8 @@ Returns a faction datum by its name (case insensitive!)
 	)
 	adjacency_list = list("Alpha Centauri", "Outpost 45", "Ross 154")
 	system_traits = STARSYSTEM_NO_ANOMALIES | STARSYSTEM_NO_WORMHOLE
+	override_music = FALSE
+	audio_cues = list("https://www.youtube.com/watch?v=sbTVZMJ9Z2I")
 
 /datum/star_system/ross
 	name = "Ross 154" //Hi mate my name's ross how's it going
@@ -935,6 +938,8 @@ Returns a faction datum by its name (case insensitive!)
 	alignment = "nanotrasen"
 	threat_level = THREAT_LEVEL_NONE
 	adjacency_list = list("Sol", "Barnard's Star", "Alpha Centauri")
+	override_music = FALSE
+	audio_cues = list("https://www.youtube.com/watch?v=sbTVZMJ9Z2I")
 
 /datum/star_system/barnie
 	name = "Barnard's Star"
@@ -947,6 +952,8 @@ Returns a faction datum by its name (case insensitive!)
 	)
 	threat_level = THREAT_LEVEL_NONE
 	adjacency_list = list("Ross 154", "Sol")
+	override_music = FALSE
+	audio_cues = list("https://www.youtube.com/watch?v=sbTVZMJ9Z2I")
 
 /datum/star_system/acentauri
 	name = "Alpha Centauri"
@@ -955,6 +962,8 @@ Returns a faction datum by its name (case insensitive!)
 	alignment = "nanotrasen"
 	threat_level = THREAT_LEVEL_NONE
 	adjacency_list = list("Ross 154", "Sol", "Sirius")
+	override_music = FALSE
+	audio_cues = list("https://www.youtube.com/watch?v=sbTVZMJ9Z2I")
 
 /datum/star_system/sirius
 	name = "Sirius"
@@ -984,6 +993,7 @@ Returns a faction datum by its name (case insensitive!)
 	alignment = "nanotrasen"
 	fleet_type = /datum/fleet/nanotrasen/border
 	adjacency_list = list("Wolf 359", "Feliciana", "Outpost 45")
+	desc = "Using the power of a demon star, a ship is able to enhance its effective FTL range, as such this is the last stop before entering sector 2: No man's land."
 	is_hypergate = TRUE
 
 /datum/star_system/outpost
@@ -1016,6 +1026,9 @@ Welcome to the neutral zone! Non corporate sanctioned traders with better gear a
 	adjacency_list = list("Lalande 21185", "Corvi")
 	sector = 2
 	is_hypergate = TRUE
+	override_music = FALSE
+	desc = "Welcome to sector! It is reccomended to be prepared before approaching what lies ahead; no man's land."
+	audio_cues = list("https://www.youtube.com/watch?v=b4Vv4zdcIyE")
 
 /datum/star_system/sector2
 	name = "Corvi"
@@ -1025,6 +1038,7 @@ Welcome to the neutral zone! Non corporate sanctioned traders with better gear a
 	alignment = "unaligned"
 	sector = 2
 	adjacency_list = list("Feliciana", "Argo")
+	audio_cues = list("https://www.youtube.com/watch?v=lwJ8L0QL_qY")
 
 /datum/star_system/sector2/argo
 	name = "Argo"
@@ -1033,6 +1047,7 @@ Welcome to the neutral zone! Non corporate sanctioned traders with better gear a
 	alignment = "nanotrasen"
 	adjacency_list = list("Corvi", "Ariel", "Ida")
 	preset_trader = /datum/trader/czanekcorp
+	audio_cues = list("https://www.youtube.com/watch?v=98aSvvXuU")
 
 /datum/star_system/sector2/ariel
 	name = "Ariel"
@@ -1040,6 +1055,7 @@ Welcome to the neutral zone! Non corporate sanctioned traders with better gear a
 	y = 45
 	alignment = "nanotrasen"
 	adjacency_list = list("Corvi", "Argo", "Ida")
+	audio_cues = list("https://www.youtube.com/watch?v=zTC_naAs3gE")
 
 /datum/star_system/sector2/ida
 	name = "Ida"
@@ -1047,6 +1063,7 @@ Welcome to the neutral zone! Non corporate sanctioned traders with better gear a
 	y = 50
 	alignment = "nanotrasen"
 	adjacency_list = list("Ariel", "Argo", "Foothold")
+	audio_cues = list("https://www.youtube.com/watch?v=zTC_naAs3gE")
 
 /datum/star_system/sector2/foothold //The last bastion of civilisation.
 	name = "Foothold"
@@ -1067,6 +1084,7 @@ Welcome to the neutral zone! Non corporate sanctioned traders with better gear a
 	alignment = "unaligned"
 	adjacency_list = list("Foothold", "Muir", "Beylix", "Sebacien")
 	desc = "The inroad to several independent colonies long abandoned by SolGov. The Sion cluster houses criminals and opportunists alike."
+	audio_cues = list("https://www.youtube.com/watch?v=0SxvfNRz_5U")
 
 /datum/star_system/sector2/muir
 	name = "Muir"
@@ -1075,6 +1093,7 @@ Welcome to the neutral zone! Non corporate sanctioned traders with better gear a
 	threat_level = THREAT_LEVEL_UNSAFE
 	alignment = "unaligned"
 	adjacency_list = list("Sion", "Sebacien")
+	audio_cues = list("https://www.youtube.com/watch?v=H2tY-oIIn7k")
 
 /datum/star_system/sector2/beylix
 	name = "Beylix"
@@ -1083,6 +1102,7 @@ Welcome to the neutral zone! Non corporate sanctioned traders with better gear a
 	threat_level = THREAT_LEVEL_UNSAFE
 	alignment = "unaligned"
 	adjacency_list = list("Sion", "Muir", "Sebacien")
+	audio_cues = list("https://www.youtube.com/watch?v=H2tY-oIIn7k")
 
 /datum/star_system/sector2/sebacien
 	name = "Sebacien"
@@ -1131,6 +1151,7 @@ Random starsystem. Excluded from starmap saving, as they're generated at init.
 	hidden = TRUE
 	alignment = "uncharted"
 	owner = "uncharted" //Currently this will say occupied whenever any fleet enters, change this.
+	audio_cues = list("https://www.youtube.com/watch?v=1pHbQ87NcCY", "https://www.youtube.com/watch?v=I-t9ZeLO-f0", "https://www.youtube.com/watch?v=qumdcXPmlO4", "https://www.youtube.com/watch?v=Xor_abtJmK0", "https://www.youtube.com/watch?v=yKy-njeooR8", "https://www.youtube.com/watch?v=4e1bCs9rScg", "https://youtu.be/3_MRe3JwFc8", "")
 
 //The badlands generates a rat run of random systems around it, so keep it well clear of civilisation
 /datum/star_system/brasil
@@ -1141,7 +1162,7 @@ Random starsystem. Excluded from starmap saving, as they're generated at init.
 	y = 30
 	sector = 2
 	adjacency_list = list("Foothold")
-	audio_cues = list("https://www.youtube.com/watch?v=HIdNZlBKrTA")
+	audio_cues = list("https://www.youtube.com/watch?v=1pHbQ87NcCY", "https://www.youtube.com/watch?v=0SxvfNRz_5U", "https://www.youtube.com/watch?v=O9qVgUFtjGw", "https://www.youtube.com/watch?v=yiqVjYqXlZY", "https://www.youtube.com/watch?v=nfE0MO2BhVs", "https://www.youtube.com/watch?v=XINQ9UqvYy4")
 	desc = "The beginning of a sector of uncharted space known as the Delphic expanse. Ships from many opposing factions all vye for control over this new territory."
 	startup_proc = "STARTUP_PROC_TYPE_BRASIL"
 

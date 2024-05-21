@@ -31,6 +31,7 @@
 	if(client) //Nsv13 - Dunno why bee didn't think of this one themselves...
 		client.music_last_played = world.time //Nsv13 - Fucks off SSambience's music spam for the sake of me bloody ears.
 		client.mob?.stop_sound_channel(CHANNEL_AMBIENT_MUSIC)
+		client.playing_music = TRUE
 	payload["url"] = url
 	window.send_message("audio/playMusic", payload)
 
@@ -42,4 +43,6 @@
 /datum/tgui_panel/proc/stop_music()
 	if(!is_ready())
 		return
+	if(client)
+		client.playing_music = FALSE
 	window.send_message("audio/stopMusic")
