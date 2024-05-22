@@ -1151,6 +1151,7 @@ Random starsystem. Excluded from starmap saving, as they're generated at init.
 	hidden = TRUE
 	alignment = "uncharted"
 	owner = "uncharted" //Currently this will say occupied whenever any fleet enters, change this.
+	override_music = FALSE
 	audio_cues = list("https://www.youtube.com/watch?v=1pHbQ87NcCY", "https://www.youtube.com/watch?v=I-t9ZeLO-f0", "https://www.youtube.com/watch?v=qumdcXPmlO4", "https://www.youtube.com/watch?v=Xor_abtJmK0", "https://www.youtube.com/watch?v=yKy-njeooR8", "https://www.youtube.com/watch?v=4e1bCs9rScg", "https://youtu.be/3_MRe3JwFc8", "")
 
 //The badlands generates a rat run of random systems around it, so keep it well clear of civilisation
